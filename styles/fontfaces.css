@@ -1,0 +1,15 @@
+﻿@font-face {
+	font-family: "exo";
+	font-weight: normal;
+	font-style: normal;
+	src: url("../fonts/exo.woff") format("woff"),
+		 url("../fonts/exo.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "spincycle";
+	font-weight: normal;
+	font-style: normal;
+	src: url("../fonts/spincycle.woff") format("woff"),
+		 url("../fonts/spincycle.ttf") format("truetype");
+}

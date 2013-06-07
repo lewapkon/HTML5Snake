@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>Super snake</title>
+	<link rel=stylesheet href="styles/main.css" />
+	<link rel=stylesheet href="styles/fontfaces.css" />
+	<link rel="stylesheet"
+		  href="styles/mobile.css"
+		  media="screen and (max-device-width: 768px)
+						and (orientation: portait),
+				 screen and (max-device-width: 1024px)
+						and (orientation: landscape) "/>
+	<script src="scripts/modernizr.js"></script>
+	<script src="scripts/loader.js"></script>
+</head>
+<body>
+	<div id="game">
+		<div class="screen" id="splash-screen">
+			<h1 class="logo">Super <br/>snake</h1>
+			<span>Dalej...</span>
+		</div>
+		<div class="screen" id="main-menu">
+			<h2 class="logo">Super <br/>snake</h2>
+			<ul class="menu">
+				<li><button name="game-screen">Graj</li>
+				<li><button name="highscore">Wyniki</li>
+				<li><button name="about">O grze</li>
+				<li><button name="exit-screen">Zamknij</li>
+			</ul>
+		</div>
+		<div class="screen" id="game-screen"></div>
+		<div class="screen" id="high-scores"></div>
+	</div>
+</body>
+</html>
