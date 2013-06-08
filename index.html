@@ -18,9 +18,14 @@
 </head>
 <body>
 	<div id="game">
+		<div class="background"></div>
+		<div id="snake-proto" class="snake-size"></div>
 		<div class="screen" id="splash-screen">
 			<h1 class="logo">Super <br/>snake</h1>
-			<span>Dalej...</span>
+			<div class="progress">
+			  <div class="indicator"></div>
+			</div>
+			<span class="continue">Dalej...</span>
 		</div>
 		<div class="screen" id="main-menu">
 			<h2 class="logo">Super <br/>snake</h2>
@@ -31,7 +36,9 @@
 				<li><button name="exit-screen">Zamknij</li>
 			</ul>
 		</div>
-		<div class="screen" id="game-screen"></div>
+		<div class="screen" id="game-screen">
+			
+		</div>
 		<div class="screen" id="high-scores"></div>
 	</div>
 </body>

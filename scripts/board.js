@@ -129,10 +129,17 @@ snake.board = (function() {
 				}
 		}
 	}
+	/*
 	function turn(rotate) {
 		if ((Math.abs(rotation - rotate)) != 2) {
 			rotation = rotate;
 		}
+	}*/
+	function turnLeft() {
+		if (--rotation < 0)	rotation = 3;
+	}
+	function turnRight() {
+		if (++rotation > 3)	rotation = 0;
 	}
 	function print() {
 		var str = "";
@@ -148,7 +155,8 @@ snake.board = (function() {
 	return {
 		initialize : initialize,
 		go : go,
-		turn : turn,
-		print : print,
+		turnLeft : turnLeft,
+		turnRight : turnRight,
+		print : print
 	};
 })();

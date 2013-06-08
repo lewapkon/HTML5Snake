@@ -1,15 +1,28 @@
 ﻿snake.screens["splash-screen"] = (function() {
 	var game = snake.game,
 		dom = snake.dom,
+		$ = dom.$,
 		firstRun = true;
-	function setup() {
-		dom.bind("#splash-screen", "click", function() {
-			game.showScreen("main-menu");
-		});
+	function setup(getLoadProgress) {
+		var scr = $("#splash-screen")[0];
+		function checkProgress() {
+			var p = getLoadProgress() * 100;
+			$(".indicator", scr)[0].style.width = p + "%";
+			if (p == 100) {
+				$(".continue", scr)[0].style.display = "block";
+				$(".progress", scr)[0].style.display = "none";
+				dom.bind(scr, "click", function() {
+					snake.game.showScreen("main-menu");
+				});
+			} else {
+				setTimeout(checkProgress, 30);
+			}
+		}
+		checkProgress();
 	}
-	function run() {
+	function run(getLoadProgress) {
 		if (firstRun) {
-			setup();
+			setup(getLoadProgress);
 			firstRun = false;
 		}
 	}
