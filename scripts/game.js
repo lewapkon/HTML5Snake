@@ -1,4 +1,4 @@
-﻿snake.game = (function() {
+snake.game = (function() {
 	var dom = snake.dom,
 		$ = dom.$;
 	
@@ -59,7 +59,7 @@
             $("html")[0].style.height = "200%";
             setTimeout(function() {
                 window.scrollTo(0, 1);
-            }, 0);
+            }, 1);
         }
         
         createBackground();

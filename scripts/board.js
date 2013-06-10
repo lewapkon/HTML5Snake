@@ -4,20 +4,38 @@ snake.board = (function() {
 		rows,
 		baseScore,
 		rotation,
+		rotated = false,
 		startX,	startY,
 		endX, endY,
 		bonusX, bonusY,
 		board, snakes,
-		score;
+		score,
+		display = snake.display,
+		time = 0, counter = 0,
+		dom = snake.dom,
+		$ = dom.$,
+		timer;
 	
 	/* funkcje gry */
-	function initialize() {
+	function initialize(callback) {
 		settings = snake.settings;
 		baseScore = settings.baseScore;
 		cols = settings.cols;
 		rows = settings.rows;
 		
 		generateSnake();
+		callback();
+	}
+	function changeTime() {
+		time++;
+		var minutes = 0,
+			seconds = 0;
+		minutes = Math.floor(time / 60);
+		seconds = time % 60;
+		if (seconds < 10) {
+			seconds = 0 + "" + seconds;
+		}
+		$("#game-screen .time span")[0].innerHTML = minutes + ":" + seconds;
 	}
 	function generateSnake() {
 		startX = Math.floor(cols/2);
@@ -29,9 +47,9 @@ snake.board = (function() {
 		snakes = [];
 		board = [];
 		
-		for (x = 0; x < cols; x++) {
+		for (var x = 0; x < cols; x++) {
 			board[x] = [];
-			for (y = 0; y < rows; y++) {
+			for (var y = 0; y < rows; y++) {
 				board[x][y] = 0;
 			}
 		}
@@ -43,7 +61,7 @@ snake.board = (function() {
 		do {
 			bonusX = Math.floor(Math.random() * cols);
 			bonusY = Math.floor(Math.random() * rows);
-		} while (board[bonusX][bonusY] == 1)
+		} while (!(board[bonusX][bonusY] == 0));
 		
 		board[bonusX][bonusY] = 2;
 	}
@@ -72,6 +90,7 @@ snake.board = (function() {
 		if (checkField(x, y)) {
 			if (checkBonus(x, y)) {
 				score += baseScore;
+				$("#game-screen .score span")[0].innerHTML = score;
 				//bonuses.push({X : x, Y : y});
 				rndBonus();
 				return 2;
@@ -83,6 +102,7 @@ snake.board = (function() {
 	}
 	function go() {
 		var helper;
+		rotated = false;
 		switch (rotation) {
 			case 0:
 				helper = goHelper(startX, startY - 1);
@@ -128,18 +148,44 @@ snake.board = (function() {
 					}
 				}
 		}
-	}
-	/*
-	function turn(rotate) {
-		if ((Math.abs(rotation - rotate)) != 2) {
-			rotation = rotate;
+		if (helper == 0) {
+			rotated = true;
+			snake.screens["game-screen"].gameOver();
+			return;
 		}
-	}*/
+		print();
+		snake.display.redraw(getBoard(), function(){});
+		if (++counter == 5) {
+			counter = 0;
+			changeTime();
+		}
+	}
+	function announce(str) {
+        var element = $("#game-screen .announcement")[0];
+        element.innerHTML = str;
+        if (Modernizr.cssanimations) {
+            dom.removeClass(element, "zoomfade");
+            setTimeout(function() {
+                dom.addClass(element, "zoomfade");
+            }, 1);
+        } else {
+            dom.addClass(element, "active");
+            setTimeout(function() {
+                dom.removeClass(element, "active");
+            }, 1000);
+        }
+	}
 	function turnLeft() {
-		if (--rotation < 0)	rotation = 3;
+		if (!rotated) {
+			if (--rotation < 0)	rotation = 3;
+			rotated = true;
+		}
 	}
 	function turnRight() {
-		if (++rotation > 3)	rotation = 0;
+		if (!rotated) {
+			if (++rotation > 3)	rotation = 0;
+			rotated = true;
+		}
 	}
 	function print() {
 		var str = "";
@@ -152,11 +198,15 @@ snake.board = (function() {
 		console.log(str);
 		console.log("Score: " + score);
 	}
+	function getBoard() {
+		return board;
+	}
 	return {
 		initialize : initialize,
 		go : go,
 		turnLeft : turnLeft,
 		turnRight : turnRight,
-		print : print
+		print : print,
+		getBoard : getBoard
 	};
 })();

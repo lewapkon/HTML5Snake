@@ -1,4 +1,4 @@
-﻿snake.screens["main-menu"] = (function() {
+snake.screens["main-menu"] = (function() {
 	var dom = snake.dom,
 		game = snake.game,
 		firstRun = true;

@@ -1,4 +1,4 @@
-﻿snake.screens["splash-screen"] = (function() {
+snake.screens["splash-screen"] = (function() {
 	var game = snake.game,
 		dom = snake.dom,
 		$ = dom.$,
@@ -10,7 +10,7 @@
 			$(".indicator", scr)[0].style.width = p + "%";
 			if (p == 100) {
 				$(".continue", scr)[0].style.display = "block";
-				$(".progress", scr)[0].style.display = "none";
+				//$(".progress", scr)[0].style.display = "none";
 				dom.bind(scr, "click", function() {
 					snake.game.showScreen("main-menu");
 				});
