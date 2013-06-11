@@ -37,7 +37,7 @@ snake.display = (function() {
 		dom.addClass(canvas, "board");
 		canvas.width = cols * snakeSize;
 		canvas.height = rows * snakeSize;
-		//ctx.scale(snakeSize, snakeSize);
+		ctx.scale(snakeSize, snakeSize);
 		
 		boardElement.appendChild(createBackground());
 		boardElement.appendChild(canvas);
@@ -103,7 +103,7 @@ snake.display = (function() {
         for (i = 0; i < pieces.length ; i++) {
             piece = pieces[i];
 
-            piece.vel.y += 20 * delta;
+            piece.vel.y += 50 * delta;
             piece.pos.y += piece.vel.y * delta;
             piece.pos.x += piece.vel.x * delta;
 
@@ -118,9 +118,10 @@ snake.display = (function() {
             ctx.translate(piece.pos.x, piece.pos.y);
             ctx.rotate(piece.rot * pos * Math.PI * 4);
             ctx.translate(-piece.pos.x, -piece.pos.y);
-            drawObject(piece.type - 1,
+            drawObject(piece.type,
                 piece.pos.x - 0.5,
-                piece.pos.y - 0.5
+                piece.pos.y - 0.5,
+                1, piece.rotation
             );
             ctx.restore();
         }
@@ -129,10 +130,12 @@ snake.display = (function() {
     function explode(callback) {
         var pieces = [],
             piece,
-            x, y;
-        for (x = 0; x < cols; x++) {
-            for (y = 0; y < rows; y++) {
-                if (board[x][y] == 1) {
+            x, y,
+            bonus = snake.board.getBonus(),
+            snakes = snake.board.getSnakes();
+        for (i = 0; i < snakes.length; i++) {
+                	x = snakes[i].X;
+                	y = snakes[i].Y;
                 	piece = {
                    		type : board[x][y],
                     	pos : {
@@ -143,16 +146,29 @@ snake.display = (function() {
                         	x : (Math.random() - 0.5) * 20,
                         	y : -Math.random() * 10
                     	},
-                    	rot : (Math.random() - 0.5) * 3
+                    	rot : (Math.random() - 0.5) * 3,
+                    	rotation : snakes[i].rot
                 	}
                 pieces.push(piece);
-                }
-            }
         }
-
-        addAnimation(2000, {
+        
+		pieces.push({
+			type : board[bonus.X][bonus.Y],
+			pos : {
+				x : bonus.X,
+				y : bonus.Y
+			},
+			vel : {
+				x : (Math.random() - 0.5) * 20,
+				y : -Math.random() * 10
+			},
+			rot : (Math.random() - 0.5) * 3,
+			rotation : 0
+		});
+		
+        addAnimation(3000, {
             before : function(pos) {
-                ctx.clearRect(0,0,cols*snakeSize,rows*snakeSize);
+                ctx.clearRect(0,0,cols,rows);
             },
             render : function(pos, delta) {
                 explodePieces(pieces, pos, delta);
@@ -167,21 +183,42 @@ snake.display = (function() {
 		}
 		callback();
 	}
-	function drawObject(type, x, y) {
-		if (type == -1) return;
+	function drawObject(type, x, y, scale, rot) {
 		var image = snake.images["images/images" + snakeSize + ".png"];
-		ctx.drawImage(image, type * snakeSize, 0, snakeSize, snakeSize, x * snakeSize, y * snakeSize, snakeSize, snakeSize);
+		ctx.save();
+		if (type == 6) return;
+		if (typeof scale !== "undefined" && scale > 0) {
+			ctx.beginPath();
+			ctx.rect(x, y, 1, 1);
+			ctx.clip();
+			ctx.translate(x + 0.5, y + 0.5);
+			ctx.scale(scale, scale);
+			if (rot) {
+				ctx.rotate(rot * Math.PI / 2);
+			}
+			ctx.translate(-x - 0.5, -y - 0.5);
+		}
+		ctx.drawImage(image, type * snakeSize, 0, snakeSize, snakeSize, x, y, 1, 1);
+		ctx.restore();
 	}
-	function redraw(newBoard, callback) {
-		var x, y;
+	function redraw(newBoard, snakes) {
+		var x, y, field;
 		board = newBoard;
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		drawObject(board[snakes[0].X][snakes[0].Y], snakes[0].X, snakes[0].Y, 1, snakes[0].rot);
+		for (var i = 1; i < snakes.length; i++) {
+			x = snakes[i].X;
+			y = snakes[i].Y;
+			drawObject(board[x][y], x, y, 1, snakes[i].rot);
+		}
 		for (x = 0; x < cols; x++) {
 			for (y = 0; y < rows; y++) {
-				drawObject(board[x][y] - 1, x, y);
+				field = board[x][y];
+				if (field == 4 || field == 5) {
+					drawObject(field, x, y, 1, 0);
+				}
 			}
 		}
-		callback();
 	}
 	return {
 		initialize : initialize,

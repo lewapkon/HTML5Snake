@@ -14,9 +14,7 @@ snake.screens["game-screen"] = (function() {
 		}
 		board.initialize(function() {
 			display.initialize(function() {
-				display.redraw(board.getBoard(), function() {
-					board.go();
-				});
+				
 			});
 		});
 	}
@@ -36,9 +34,9 @@ snake.screens["game-screen"] = (function() {
         }
     }
 	function gameOver() {
+		clearInterval(timer);
 		display.gameOver(function() {
 			announce("Przegrałeś grę!");
-			clearInterval(timer);
 		});
 	}
 	function turn(turn) {

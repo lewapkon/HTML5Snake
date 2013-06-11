@@ -7,7 +7,7 @@ snake.board = (function() {
 		rotated = false,
 		startX,	startY,
 		endX, endY,
-		bonusX, bonusY,
+		bonusX, bonusY, bonus,
 		board, snakes,
 		score,
 		display = snake.display,
@@ -50,23 +50,28 @@ snake.board = (function() {
 		for (var x = 0; x < cols; x++) {
 			board[x] = [];
 			for (var y = 0; y < rows; y++) {
-				board[x][y] = 0;
+				board[x][y] = 6;
 			}
 		}
-		snakes.push({X : startX, Y : startY});
-		board[snakes[0].X][snakes[0].Y] = 1;
+		snakes.unshift({X : startX, Y : startY, rot : rotation});
+		board[snakes[0].X][snakes[0].Y] = 0;
 		rndBonus();
 	}
 	function rndBonus() {
 		do {
 			bonusX = Math.floor(Math.random() * cols);
 			bonusY = Math.floor(Math.random() * rows);
-		} while (!(board[bonusX][bonusY] == 0));
+		} while (board[bonusX][bonusY] != 6);
 		
-		board[bonusX][bonusY] = 2;
+		bonus = {
+			X : bonusX,
+			Y : bonusY,
+			type : Math.random() > 0.95 ? 5 : 4
+		};
+		board[bonus.X][bonus.Y] = bonus.type;
 	}
 	function checkBonus(x, y) {
-		if (getField(x, y) == 2) {
+		if (getField(x, y) == 4 || getField(x, y) == 5) {
 			return true;
 		} else {
 			return false;
@@ -74,13 +79,13 @@ snake.board = (function() {
 	}
 	function getField(x, y) {
 		if (x < 0 || x > cols - 1 || y < 0 || y > rows - 1) {
-			return -1;
+			return -2;
 		} else {
 			return board[x][y];
 		}
 	}
 	function checkField(x, y) {
-		if (getField(x, y) == 0 || getField(x, y) == 2) {
+		if (getField(x, y) == 6 || getField(x, y) == 4 || getField(x, y) == 5) {
 			return true;
 		} else {
 			return false;
@@ -107,10 +112,10 @@ snake.board = (function() {
 			case 0:
 				helper = goHelper(startX, startY - 1);
 				if (helper > 0) {
-					snakes.unshift({X : startX, Y : --startY});
-					board[snakes[0].X][snakes[0].Y] = 1;
+					snakes.unshift({X : startX, Y : --startY, rot : 0});
+					board[snakes[0].X][snakes[0].Y] = 3;
 					if (helper == 1) {
-						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 0;
+						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 6;
 						snakes.pop();
 					}
 				}
@@ -118,10 +123,10 @@ snake.board = (function() {
 			case 1:
 				helper = goHelper(startX + 1, startY);
 				if (helper > 0) {
-					snakes.unshift({X : ++startX, Y : startY});
-					board[snakes[0].X][snakes[0].Y] = 1;
+					snakes.unshift({X : ++startX, Y : startY, rot : 1});
+					board[snakes[0].X][snakes[0].Y] = 3;
 					if (helper == 1) {
-						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 0;
+						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 6;
 						snakes.pop();
 					}
 				}
@@ -129,10 +134,10 @@ snake.board = (function() {
 			case 2:
 				helper = goHelper(startX, startY + 1);
 				if (helper > 0) {
-					snakes.unshift({X : startX, Y : ++startY});
-					board[snakes[0].X][snakes[0].Y] = 1;
+					snakes.unshift({X : startX, Y : ++startY, rot : 2});
+					board[snakes[0].X][snakes[0].Y] = 3;
 					if (helper == 1) {
-						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 0;
+						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 6;
 						snakes.pop();
 					}
 				}
@@ -140,51 +145,49 @@ snake.board = (function() {
 			case 3:
 				helper = goHelper(startX - 1, startY);
 				if (helper > 0) {
-					snakes.unshift({X : --startX, Y : startY});
-					board[snakes[0].X][snakes[0].Y] = 1;
+					snakes.unshift({X : --startX, Y : startY, rot : 3});
+					board[snakes[0].X][snakes[0].Y] = 3;
 					if (helper == 1) {
-						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 0;
+						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 6;
 						snakes.pop();
 					}
 				}
 		}
+		if (helper > 0 && snakes.length > 1) {
+			if (board[snakes[1].X][snakes[1].Y] == 3) {
+				board[snakes[1].X][snakes[1].Y] = 0;
+			}
+		}
 		if (helper == 0) {
+			// Przegrałeś
+			board[snakes[0].X][snakes[0].Y] = 3;
 			rotated = true;
 			snake.screens["game-screen"].gameOver();
 			return;
 		}
 		print();
-		snake.display.redraw(getBoard(), function(){});
+		display.redraw(getBoard(), getSnakes());
 		if (++counter == 5) {
 			counter = 0;
 			changeTime();
 		}
 	}
-	function announce(str) {
-        var element = $("#game-screen .announcement")[0];
-        element.innerHTML = str;
-        if (Modernizr.cssanimations) {
-            dom.removeClass(element, "zoomfade");
-            setTimeout(function() {
-                dom.addClass(element, "zoomfade");
-            }, 1);
-        } else {
-            dom.addClass(element, "active");
-            setTimeout(function() {
-                dom.removeClass(element, "active");
-            }, 1000);
-        }
-	}
 	function turnLeft() {
 		if (!rotated) {
 			if (--rotation < 0)	rotation = 3;
 			rotated = true;
+			board[snakes[0].X][snakes[0].Y] = 2;
+			//snakes[0].rot -= 1;
+			if (snakes[0].rot < 0) snakes[0].rot = 3;
 		}
 	}
 	function turnRight() {
 		if (!rotated) {
 			if (++rotation > 3)	rotation = 0;
 			rotated = true;
+			board[snakes[0].X][snakes[0].Y] = 1;
+			//snakes[0].rot += 1;
+			if (snakes[0].rot > 3) snakes[0].rot = 0;
 		}
 	}
 	function print() {
@@ -201,12 +204,20 @@ snake.board = (function() {
 	function getBoard() {
 		return board;
 	}
+	function getSnakes() {
+		return snakes;
+	}
+	function getBonus() {
+		return bonus;
+	}
 	return {
 		initialize : initialize,
 		go : go,
 		turnLeft : turnLeft,
 		turnRight : turnRight,
 		print : print,
-		getBoard : getBoard
+		getBoard : getBoard,
+		getSnakes : getSnakes,
+		getBonus : getBonus
 	};
 })();
