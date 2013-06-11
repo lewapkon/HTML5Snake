@@ -19,7 +19,7 @@ var snake = {
 // Oczekiwanie na załadowanie głównego dokumentu.
 window.addEventListener("load", function(){
 
-	// Określa rozmiar klejnotu.
+	// Określa rozmiar kawałka węża.
 	var snakeProto = document.getElementById("snake-proto"),
 		rect = snakeProto.getBoundingClientRect();
 	snake.settings.snakeSize = rect.width;

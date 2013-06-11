@@ -12,12 +12,17 @@
 		  media="screen and (max-device-width: 768px)
 						and (orientation: portait),
 				 screen and (max-device-width: 1024px)
-						and (orientation: landscape) "/>
+						and (orientation: landscape)"/>
+	<link rel="stylesheet"
+		  href="styles/ipad.css"
+		  media="screen and (device-width: 768px)
+		  				and (device-height: 1024px)
+		  				and (-webkit-device-pixel-ratio: 2)" />
 	<script src="scripts/modernizr.js"></script>
 	<script src="scripts/loader.js"></script>
 </head>
 <body>
-	<div id="game"
+	<div id="game">
 		<div class="background"></div>
 		<div id="snake-proto" class="snake-size"></div>
 		<div class="screen" id="splash-screen">

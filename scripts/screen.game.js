@@ -21,7 +21,7 @@ snake.screens["game-screen"] = (function() {
 	function announce(str) {
         var element = $("#game-screen .announcement")[0];
         element.innerHTML = str;
-        if (Modernizr.cssanimations) {
+        if (1 == 1) {
             dom.removeClass(element, "zoomfade");
             setTimeout(function() {
                 dom.addClass(element, "zoomfade");
