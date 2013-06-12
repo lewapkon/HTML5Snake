@@ -19,6 +19,7 @@
 	#game-screen .game-info {
 		width : auto;
 		height : 2em;
+		display : inline-block;
 		white-space : nowrap;
 	}
 	#game-screen .game-info label {
@@ -29,26 +30,15 @@
 		clear : both;
 	}
 	#game-screen .game-info .time {
-		float : right;
-		clear : both;
-	}/*
-	#game-screen .time {
-		font-size : 0.5em;
-		margin : 0;
 		float : left;
-		width : 6.5em;
-		-webkit-transform : rotate(-90deg)
-				translate(-3em, -1.75em);
-		-moze-transform : rotate(-90deg)
-				translate(-3em, -1.75em);
-		-ms-transform : rotate(-90deg)
-				translate(-3em, -1.75em);
-		transform : rotate(-90deg)
-				translate(-3em, -1.75em);
-	}*/
+		clear : both;
+	}
+	.snake-size {
+		font-size : 32px;
+	}
 	#splash-screen,
 	#main-menu {
-		font-size : 1.0em;
+		font-size : 0.55em;
 		padding-top : 0.75em;
 	}
 	ul.menu li {
@@ -56,7 +46,7 @@
 		margin : 0;
 	}
 	ul.menu li button {
-		margin : 0.5em;
+		margin : 0.3em;
 		font-size : 0.5em;
 	}
 }

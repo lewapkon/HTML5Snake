@@ -43,7 +43,7 @@ snake.display = (function() {
 		boardElement.appendChild(canvas);
 		
 		previousCycle = Date.now();
-		requestAnimationFrame(cycle);
+		window.requestAnimationFrame(cycle);
 	}
 	function renderAnimations(time, lastTime) {
         var anims = animations.slice(0), // Kopiuje listę.
@@ -81,7 +81,7 @@ snake.display = (function() {
 	function cycle(time) {
         renderAnimations(time, previousCycle);
         previousCycle = time;
-        requestAnimationFrame(cycle);
+        window.requestAnimationFrame(cycle);
     }
 	function gameOver(callback) {
         addAnimation(1000, {

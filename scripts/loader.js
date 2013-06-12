@@ -69,6 +69,7 @@ window.addEventListener("load", function(){
 			"scripts/sizzle.js",
 			"scripts/dom.js",
 			"scripts/requestAnimationFrame.js",
+			"scripts/storage.js",
 			"scripts/game.js",
 			"scripts/screen.splash.js"
 		],
@@ -85,6 +86,7 @@ window.addEventListener("load", function(){
 			"loader!scripts/display.canvas.js",
 			"loader!scripts/board.js",
 			"loader!scripts/input.js",
+			"loader!scripts/screen.hiscore.js",
 			"loader!scripts/screen.main-menu.js",
 			"loader!scripts/screen.game.js",
 			"loader!images/images" + snake.settings.snakeSize + ".png"

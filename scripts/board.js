@@ -5,25 +5,29 @@ snake.board = (function() {
 		baseScore,
 		rotation,
 		rotated = false,
-		startX,	startY,
-		endX, endY,
+		startX, startY,
 		bonusX, bonusY, bonus,
 		board, snakes,
 		score,
 		display = snake.display,
 		time = 0, counter = 0,
 		dom = snake.dom,
-		$ = dom.$,
-		timer;
+		$ = dom.$;
 	
 	/* funkcje gry */
-	function initialize(callback) {
+	function initialize(startSnake, callback) {
 		settings = snake.settings;
 		baseScore = settings.baseScore;
 		cols = settings.cols;
 		rows = settings.rows;
-		
-		generateSnake();
+		if (!startSnake) {
+			startX = Math.floor(cols/2);
+			startY = Math.floor(rows/2);
+			generateSnake();
+		} else {
+			startX = snakes[0].X;
+			startY = snakes[0].Y;
+		}
 		callback();
 	}
 	function changeTime() {
@@ -38,10 +42,6 @@ snake.board = (function() {
 		$("#game-screen .time span")[0].innerHTML = minutes + ":" + seconds;
 	}
 	function generateSnake() {
-		startX = Math.floor(cols/2);
-		startY = Math.floor(rows/2);
-		endX = startX;
-		endY = startY;
 		rotation = Math.floor(Math.random()*4);
 		score = 0;
 		snakes = [];
@@ -165,12 +165,13 @@ snake.board = (function() {
 			snake.screens["game-screen"].gameOver();
 			return;
 		}
-		print();
+		//print();
 		display.redraw(getBoard(), getSnakes());
 		if (++counter == 5) {
 			counter = 0;
 			changeTime();
 		}
+		snake.screens["game-screen"].saveGameData();
 	}
 	function turnLeft() {
 		if (!rotated) {
@@ -204,11 +205,50 @@ snake.board = (function() {
 	function getBoard() {
 		return board;
 	}
+	function setBoard(newBoard) {
+		board = newBoard;
+	}
 	function getSnakes() {
 		return snakes;
 	}
+	function setSnakes(newSnakes) {
+		snakes = newSnakes;
+	}
 	function getBonus() {
 		return bonus;
+	}
+	function setBonus(newBonus) {
+		bonus = newBonus;
+	}
+	function getScore() {
+		return score;
+	}
+	function setScore(newScore) {
+		score = newScore;
+	}
+	function getTime() {
+		return time;
+	}
+	function setTime(newTime) {
+		time = newTime;
+	}
+	function getRotation() {
+		return rotation;
+	}
+	function setRotation(newRotation) {
+		rotation = newRotation;
+	}
+	function getRotated() {
+		return rotated;
+	}
+	function setRotated(newRotated) {
+		rotated = newRotated;
+	}
+	function getCounter() {
+		return counter;
+	}
+	function setCounter(newCounter) {
+		counter = newCounter;
 	}
 	return {
 		initialize : initialize,
@@ -218,6 +258,19 @@ snake.board = (function() {
 		print : print,
 		getBoard : getBoard,
 		getSnakes : getSnakes,
-		getBonus : getBonus
+		getBonus : getBonus,
+		getScore : getScore,
+		getTime : getTime,
+		getRotation : getRotation,
+		getRotated : getRotated,
+		getCounter : getCounter,
+		setBoard : setBoard,
+		setSnakes : setSnakes,
+		setBonus : setBonus,
+		setScore : setScore,
+		setTime : setTime,
+		setRotation : setRotation,
+		setRotated : setRotated,
+		setCounter : setCounter
 	};
 })();

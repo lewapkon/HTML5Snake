@@ -4,7 +4,8 @@ snake.screens["game-screen"] = (function() {
 		display = snake.display,
 		input = snake.input,
 		firstRun = true,
-		timer,
+		timer, paused = false,
+		storage = snake.storage,
 		dom = snake.dom,
 		$ = dom.$;
 	function run() {
@@ -12,9 +13,29 @@ snake.screens["game-screen"] = (function() {
 			setup();
 			firstRun = false;
 		}
-		board.initialize(function() {
+		startGame();
+	}
+	function startGame() {
+		var activeGame = storage.get("activeGameData"),
+			useActiveGame,
+			data;
+		if (activeGame) {
+			useActiveGame = window.confirm("Czy chciałbyś powrócić do uprzednio zapisanej gry?");
+			if (useActiveGame) {
+				board.setBoard(activeGame.board);
+				board.setSnakes(activeGame.snakes);
+				board.setBonus(activeGame.bonus);
+				board.setScore(activeGame.score);
+				board.setTime(activeGame.time);
+				board.setRotation(activeGame.rotation);
+				board.setRotated(activeGame.rotated);
+				board.setCounter(activeGame.counter);
+			}
+		}
+		
+		board.initialize(useActiveGame, function() {
 			display.initialize(function() {
-				
+				timer = setInterval(board.go, 200);
 			});
 		});
 	}
@@ -34,9 +55,13 @@ snake.screens["game-screen"] = (function() {
         }
     }
 	function gameOver() {
-		clearInterval(timer);
+		stopGame();
+		storage.set("activeGameData", null);
 		display.gameOver(function() {
 			announce("Przegrałeś grę!");
+			setTimeout(function() {
+				snake.game.showScreen("hiscore", board.getScore());
+			}, 2500);
 		});
 	}
 	function turn(turn) {
@@ -53,11 +78,49 @@ snake.screens["game-screen"] = (function() {
 		input.bind("turnRight", board.turnRight);
 		//input.bind("go", board.go);
 		input.bind("turn", turn);
-		timer = setInterval(board.go, 200);
+		dom.bind("#game-screen button[name=exit]", "click", function() {
+			togglePause(true);
+			var exitGame = window.confirm("Czy chcesz powrócić do głównego menu?");
+			togglePause(false);
+			if (exitGame) {
+				saveGameData();
+				stopGame();
+				snake.game.showScreen("main-menu");
+			}
+		});
+	}
+	function stopGame() {
+		clearInterval(timer);
+		timer = 0;
+	}
+	function togglePause(enable) {
+		if (enable == paused) return;
+		var overlay =$("#game-screen .pause-overlay")[0];
+		paused = enable;
+		overlay.style.display = paused ? "block" : "none";
+		if (paused) {
+			clearInterval(timer);
+			timer = 0;
+		} else {
+			timer = setInterval(board.go, 200);
+		}
+	}
+	function saveGameData() {
+		storage.set("activeGameData", {
+			board : board.getBoard(),
+			snakes : board.getSnakes(),
+			time : board.getTime(),
+			counter : board.getCounter(),
+			rotation : board.getRotation(),
+			rotated : board.getRotated(),
+			bonus : board.getBonus(),
+			score : board.getScore()
+		});
 	}
 	return {
 		run : run,
 		gameOver : gameOver,
-		announce : announce
+		announce : announce,
+		saveGameData : saveGameData
 	};
 })();
