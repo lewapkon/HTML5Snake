@@ -23,7 +23,9 @@ window.addEventListener("load", function(){
 	var snakeProto = document.getElementById("snake-proto"),
 		rect = snakeProto.getBoundingClientRect();
 	snake.settings.snakeSize = rect.width;
-
+	if (snake.settings.snakeSize != 40 || snake.settings.snakeSize != 64) {
+		snake.settings.snakeSize = 40;
+	}
 
 	Modernizr.addTest("standalone", function() {
 		return (window.navigator.standalone != false);
@@ -89,7 +91,8 @@ window.addEventListener("load", function(){
 			"loader!scripts/screen.hiscore.js",
 			"loader!scripts/screen.main-menu.js",
 			"loader!scripts/screen.game.js",
-			"loader!images/images" + snake.settings.snakeSize + ".png"
+			"loader!images/images" + snake.settings.snakeSize + ".png",
+			"loader!images/tlo" + snake.settings.snakeSize + ".png"
 		]
 	}]);
 }, false);

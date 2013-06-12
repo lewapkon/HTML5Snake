@@ -71,10 +71,10 @@ snake.board = (function() {
 		board[bonus.X][bonus.Y] = bonus.type;
 	}
 	function checkBonus(x, y) {
-		if (getField(x, y) == 4 || getField(x, y) == 5) {
-			return true;
-		} else {
-			return false;
+		if (getField(x, y) == 4) {
+			return 1;
+		} else if (getField(x, y) == 5) {
+			return 2;
 		}
 	}
 	function getField(x, y) {
@@ -94,7 +94,7 @@ snake.board = (function() {
 	function goHelper(x, y) {
 		if (checkField(x, y)) {
 			if (checkBonus(x, y)) {
-				score += baseScore;
+				score += checkBonus(x, y) * baseScore;
 				$("#game-screen .score span")[0].innerHTML = score;
 				//bonuses.push({X : x, Y : y});
 				rndBonus();

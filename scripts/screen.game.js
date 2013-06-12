@@ -58,7 +58,7 @@ snake.screens["game-screen"] = (function() {
 		stopGame();
 		storage.set("activeGameData", null);
 		display.gameOver(function() {
-			announce("Przegrałeś grę!");
+			//announce("Przegrałeś grę!");
 			setTimeout(function() {
 				snake.game.showScreen("hiscore", board.getScore());
 			}, 2500);

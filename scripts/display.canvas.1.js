@@ -6,23 +6,15 @@ snake.display = (function() {
 		snakeSize,
 		firstRun = true,
 		board,
-		animations = [],
-		timer;
+		animations = [];
 	function createBackground() {
 		var background = document.createElement("canvas"),
-			bgctx = background.getContext("2d"),
-			image = snake.images["images/tlo" + snakeSize + ".png"];
+			bgctx = background.getContext("2d");
 		dom.addClass(background, "background");
 		background.width = cols * snakeSize;
 		background.height = rows * snakeSize;
-		//bgctx.fillStyle = "rgba(225,235,255,0.15)";
-		//bgctx.fillRect(0, 0, cols * snakeSize, rows * snakeSize);
-		
-		for (var x = 0; x < cols; x++) {
-			for (var y = 0; y < rows; y++) {
-				bgctx.drawImage(image, x * snakeSize, y * snakeSize, snakeSize, snakeSize);
-			}
-		}
+		bgctx.fillStyle = "rgba(225,235,255,0.15)";
+		bgctx.fillRect(0, 0, cols * snakeSize, rows * snakeSize);
 		return background;
 	}
 	function addAnimation(runTime, fncs) {
@@ -90,7 +82,6 @@ snake.display = (function() {
         renderAnimations(time, previousCycle);
         previousCycle = time;
         window.requestAnimationFrame(cycle);
-        //timer = setTimeout(cycle, 1000/30);
     }
 	function gameOver(callback) {
         addAnimation(1000, {
@@ -123,7 +114,7 @@ snake.display = (function() {
             }
 
             ctx.save();
-            //ctx.globalCompositeOperation = "lighter";
+            ctx.globalCompositeOperation = "lighter";
             ctx.translate(piece.pos.x, piece.pos.y);
             ctx.rotate(piece.rot * pos * Math.PI * 4);
             ctx.translate(-piece.pos.x, -piece.pos.y);
@@ -203,7 +194,7 @@ snake.display = (function() {
 			ctx.translate(x + 0.5, y + 0.5);
 			ctx.scale(scale, scale);
 			if (rot) {
-				ctx.rotate(rot);
+				ctx.rotate(rot * Math.PI / 2);
 			}
 			ctx.translate(-x - 0.5, -y - 0.5);
 		}
@@ -214,11 +205,11 @@ snake.display = (function() {
 		var x, y, field;
 		board = newBoard;
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		drawObject(board[snakes[0].X][snakes[0].Y], snakes[0].X, snakes[0].Y, 1, snakes[0].rot * Math.PI / 2);
+		drawObject(board[snakes[0].X][snakes[0].Y], snakes[0].X, snakes[0].Y, 1, snakes[0].rot);
 		for (var i = 1; i < snakes.length; i++) {
 			x = snakes[i].X;
 			y = snakes[i].Y;
-			drawObject(board[x][y], x, y, 1, snakes[i].rot * Math.PI / 2);
+			drawObject(board[x][y], x, y, 1, snakes[i].rot);
 		}
 		for (x = 0; x < cols; x++) {
 			for (y = 0; y < rows; y++) {
