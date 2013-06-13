@@ -8,7 +8,7 @@ snake.board = (function() {
 		startX, startY,
 		bonusX, bonusY, bonus,
 		board, snakes,
-		score,
+		score, popped,
 		display = snake.display,
 		time = 0, counter = 0,
 		dom = snake.dom,
@@ -114,10 +114,6 @@ snake.board = (function() {
 				if (helper > 0) {
 					snakes.unshift({X : startX, Y : --startY, rot : 0});
 					board[snakes[0].X][snakes[0].Y] = 3;
-					if (helper == 1) {
-						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 6;
-						snakes.pop();
-					}
 				}
 				break;
 			case 1:
@@ -125,10 +121,6 @@ snake.board = (function() {
 				if (helper > 0) {
 					snakes.unshift({X : ++startX, Y : startY, rot : 1});
 					board[snakes[0].X][snakes[0].Y] = 3;
-					if (helper == 1) {
-						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 6;
-						snakes.pop();
-					}
 				}
 				break;
 			case 2:
@@ -136,10 +128,6 @@ snake.board = (function() {
 				if (helper > 0) {
 					snakes.unshift({X : startX, Y : ++startY, rot : 2});
 					board[snakes[0].X][snakes[0].Y] = 3;
-					if (helper == 1) {
-						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 6;
-						snakes.pop();
-					}
 				}
 				break;
 			case 3:
@@ -147,10 +135,6 @@ snake.board = (function() {
 				if (helper > 0) {
 					snakes.unshift({X : --startX, Y : startY, rot : 3});
 					board[snakes[0].X][snakes[0].Y] = 3;
-					if (helper == 1) {
-						board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 6;
-						snakes.pop();
-					}
 				}
 		}
 		if (helper > 0 && snakes.length > 1) {
@@ -165,8 +149,13 @@ snake.board = (function() {
 			snake.screens["game-screen"].gameOver();
 			return;
 		}
-		//print();
-		display.redraw(getBoard(), getSnakes());
+		display.animateSnake(board, snakes);
+		if (helper == 1) {
+			board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 6;
+			popped = snakes.pop();
+		}
+		//snake.display.redraw(board, snakes);
+		print();
 		if (++counter == 5) {
 			counter = 0;
 			changeTime();

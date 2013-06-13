@@ -142,7 +142,7 @@ snake.display = (function() {
             x, y,
             bonus = snake.board.getBonus(),
             snakes = snake.board.getSnakes();
-        for (i = 0; i < snakes.length; i++) {
+        for (var i = 0; i < snakes.length; i++) {
                 	x = snakes[i].X;
                 	y = snakes[i].Y;
                 	piece = {
@@ -229,9 +229,66 @@ snake.display = (function() {
 			}
 		}
 	}
+	function moveSnake(objects, pos) {
+		var fromX, fromY, toX, toY, turnings = [];/*
+		for (var i = 0; i < objects.length; i++) {
+			if (objects[i].type == 1 || objects[i].type == 2) {
+				turnings.push(objects[i]);
+				//objects[i].type = 0;
+			}
+		}*/
+		for (var i = 0; i < objects.length; i++) {
+			fromX = objects[i].from.x;
+			fromY = objects[i].from.y;
+			toX = objects[i].to.x;
+			toY = objects[i].to.y;/*
+			if (objects[i].type == 1 || objects[i].type == 2) {
+				objects[i].type = 0;
+			}*/
+			drawObject(objects[i].type, fromX + ((toX - fromX) * pos),
+										fromY + ((toY - fromY) * pos),
+										1, objects[i].rot
+			);
+		}/*
+		for (var i = 0; i < turnings.length; i++) {
+			drawObject(turnings[i].type, turnings[i].to.x, turnings[i].to.y, 1, turnings[i].rot);
+		}*/
+	}
+	function animateSnake(newBoard, snakes, popped) {
+		var objects = [], current,
+			bonus = snake.board.getBonus();
+		board = newBoard;
+		
+		for (var i = 0; i < snakes.length - 1; i++) {
+			current = {
+				from : {
+					x : snakes[i + 1].X,
+					y : snakes[i + 1].Y
+				},
+				to : {
+					x : snakes[i].X,
+					y : snakes[i].Y
+				},
+				type : board[snakes[i].X][snakes[i].Y],
+				rot : snakes[i].rot * Math.PI / 2
+			};
+			objects.push(current);
+		}
+		
+		addAnimation(200, {
+            before : function(pos) {
+                ctx.clearRect(0, 0, cols, rows);
+            },
+            render : function(pos) {
+                drawObject(bonus.type, bonus.X, bonus.Y, 1, 0);
+                moveSnake(objects, pos);
+            }
+        });
+	}
 	return {
 		initialize : initialize,
 		redraw : redraw,
-		gameOver : gameOver
+		gameOver : gameOver,
+		animateSnake : animateSnake
 	};
 })();
