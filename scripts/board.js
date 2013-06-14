@@ -11,6 +11,7 @@ snake.board = (function() {
 		score, popped,
 		display = snake.display,
 		time = 0, counter = 0,
+		anim,
 		dom = snake.dom,
 		$ = dom.$;
 	
@@ -20,6 +21,7 @@ snake.board = (function() {
 		baseScore = settings.baseScore;
 		cols = settings.cols;
 		rows = settings.rows;
+		anim = snake.screens["settings"].getAnim();
 		if (!startSnake) {
 			startX = Math.floor(cols/2);
 			startY = Math.floor(rows/2);
@@ -149,13 +151,17 @@ snake.board = (function() {
 			snake.screens["game-screen"].gameOver();
 			return;
 		}
-		display.animateSnake(board, snakes);
+		if (anim == true) {
+			display.animateSnake(board, snakes);
+		}
 		if (helper == 1) {
 			board[snakes[snakes.length - 1].X][snakes[snakes.length - 1].Y] = 6;
 			popped = snakes.pop();
 		}
-		//snake.display.redraw(board, snakes);
-		print();
+		if (anim == false) {
+			snake.display.redraw(board, snakes);
+		}
+		//print();
 		if (++counter == 5) {
 			counter = 0;
 			changeTime();

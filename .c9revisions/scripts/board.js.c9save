@@ -68,3 +68,33 @@
 {"ts":1371152419181,"patch":[[{"diffs":[[0,"y.redraw"],[1,"(board, sna)"],[0,"\n\t\tprint"]],"start1":3553,"start2":3553,"length1":16,"length2":28}]],"length":5677,"saved":false}
 {"ts":1371152422481,"patch":[[{"diffs":[[0,"ard, sna"],[-1,")"],[1,"kes);"],[0,"\n\t\tprint"]],"start1":3564,"start2":3564,"length1":17,"length2":21}]],"length":5681,"saved":false}
 {"ts":1371152425113,"patch":[[{"diffs":[[0,"op();\n\t\t}\n\t\t"],[1,"//"],[0,"snake.displa"]],"start1":3529,"start2":3529,"length1":24,"length2":26}]],"length":5683,"saved":false}
+{"contributors":[],"silentsave":true,"ts":1371232744374,"patch":[[{"diffs":[[0,"er = 0,\n"],[1,"\t\tanims\n"],[0,"\t\tdom = "]],"start1":224,"start2":224,"length1":16,"length2":24}]],"length":5691,"saved":false}
+{"ts":1371232745483,"patch":[[{"diffs":[[0,"\n\t\tanims"],[1,","],[0,"\n\t\tdom ="]],"start1":231,"start2":231,"length1":16,"length2":17}]],"length":5692,"saved":false}
+{"ts":1371232752170,"patch":[[{"diffs":[[0,"s.rows;\n"],[1,"\t\tanims = \n"],[0,"\t\tif (!s"]],"start1":442,"start2":442,"length1":16,"length2":27}]],"length":5703,"saved":false}
+{"ts":1371233089947,"patch":[[{"diffs":[[0,"anims = "],[1,"scr"],[0,"\n\t\tif (!"]],"start1":452,"start2":452,"length1":16,"length2":19}]],"length":5706,"saved":false}
+{"ts":1371233090963,"patch":[[{"diffs":[[0,"ms = scr"],[1,"een"],[0,"\n\t\tif (!"]],"start1":455,"start2":455,"length1":16,"length2":19}]],"length":5709,"saved":false}
+{"ts":1371233091985,"patch":[[{"diffs":[[0,"= screen"],[1,"."],[0,"\n\t\tif (!"]],"start1":458,"start2":458,"length1":16,"length2":17}]],"length":5710,"saved":false}
+{"ts":1371233094914,"patch":[[{"diffs":[[0," = s"],[-1,"creen."],[1,"nake"],[0,"\n\t\ti"]],"start1":457,"start2":457,"length1":14,"length2":12}]],"length":5708,"saved":false}
+{"ts":1371233097297,"patch":[[{"diffs":[[0," = snake"],[1,".screens[]"],[0,"\n\t\tif (!"]],"start1":457,"start2":457,"length1":16,"length2":26}]],"length":5718,"saved":false}
+{"ts":1371233100046,"patch":[[{"diffs":[[0,"screens["],[1,"\"settings\""],[0,"]\n\t\tif ("]],"start1":466,"start2":466,"length1":16,"length2":26}]],"length":5728,"saved":false}
+{"ts":1371233102729,"patch":[[{"diffs":[[0,"ttings\"]"],[1,"."],[0,"\n\t\tif (!"]],"start1":477,"start2":477,"length1":16,"length2":17}]],"length":5729,"saved":false}
+{"ts":1371233104461,"patch":[[{"diffs":[[0,"tings\"]."],[1,"getA"],[0,"\n\t\tif (!"]],"start1":478,"start2":478,"length1":16,"length2":20}]],"length":5733,"saved":false}
+{"ts":1371233105520,"patch":[[{"diffs":[[0,"s\"].getA"],[1,"nim"],[0,"\n\t\tif (!"]],"start1":482,"start2":482,"length1":16,"length2":19}]],"length":5736,"saved":false}
+{"ts":1371233108199,"patch":[[{"diffs":[[0,".getAnim"],[1,"();"],[0,"\n\t\tif (!"]],"start1":485,"start2":485,"length1":16,"length2":19}]],"length":5739,"saved":false}
+{"ts":1371233116857,"patch":[[{"diffs":[[0,",\n\t\tanim"],[-1,"s"],[0,",\n\t\tdom "]],"start1":230,"start2":230,"length1":17,"length2":16},{"diffs":[[0,";\n\t\tanim"],[-1,"s"],[0," = snake"]],"start1":447,"start2":447,"length1":17,"length2":16}]],"length":5737,"saved":false}
+{"ts":1371233123657,"patch":[[{"diffs":[[0,";\n\t\t}\n\t\t"],[-1,"//"],[0,"snake.di"]],"start1":3587,"start2":3587,"length1":18,"length2":16}]],"length":5735,"saved":false}
+{"ts":1371233125944,"patch":[[{"diffs":[[0,"rn;\n\t\t}\n"],[1,"\t\tif\n"],[0,"\t\tdispla"]],"start1":3423,"start2":3423,"length1":16,"length2":21}]],"length":5740,"saved":false}
+{"ts":1371233126713,"patch":[[{"diffs":[[0,"\t\t}\n\t\tif"],[1," ()"],[0,"\n\t\tdispl"]],"start1":3427,"start2":3427,"length1":16,"length2":19}]],"length":5743,"saved":false}
+{"ts":1371233127378,"patch":[[{"diffs":[[0,"}\n\t\tif ("],[1,"anim"],[0,")\n\t\tdisp"]],"start1":3429,"start2":3429,"length1":16,"length2":20}]],"length":5747,"saved":false}
+{"ts":1371233128646,"patch":[[{"diffs":[[0,"if (anim"],[1," =="],[0,")\n\t\tdisp"]],"start1":3433,"start2":3433,"length1":16,"length2":19}]],"length":5750,"saved":false}
+{"ts":1371233131882,"patch":[[{"diffs":[[0,"(anim =="],[1," true"],[0,")\n\t\tdisp"]],"start1":3436,"start2":3436,"length1":16,"length2":21}]],"length":5755,"saved":false}
+{"ts":1371233154391,"patch":[[{"diffs":[[0,"== true)"],[1," {\n\t\t\t\n\t\t}"],[0,"\n\t\tdispl"]],"start1":3442,"start2":3442,"length1":16,"length2":26}]],"length":5765,"saved":false}
+{"ts":1371233161672,"patch":[[{"diffs":[[0,"e) {\n\t\t\t"],[-1,"\n\t\t}\n\t\t"],[0,"display."]],"start1":3448,"start2":3448,"length1":23,"length2":16},{"diffs":[[0,"nakes);\n"],[1,"\t\t}\n\t\t\n"],[0,"\t\tif (he"]],"start1":3485,"start2":3485,"length1":16,"length2":23}]],"length":5765,"saved":false}
+{"ts":1371233164241,"patch":[[{"diffs":[[0,"s);\n\t\t}\n"],[-1,"\t\t\n"],[0,"\t\tif (he"]],"start1":3489,"start2":3489,"length1":19,"length2":16}]],"length":5762,"saved":false}
+{"ts":1371233170519,"patch":[[{"diffs":[[0,"akes.pop();\n\t\t}\n"],[1,"\t\tif ()\n"],[0,"\t\tsnake.display."]],"start1":3604,"start2":3604,"length1":32,"length2":40}]],"length":5770,"saved":false}
+{"ts":1371233173056,"patch":[[{"diffs":[[0,"}\n\t\tif ("],[1,"anim "],[0,")\n\t\tsnak"]],"start1":3618,"start2":3618,"length1":16,"length2":21}]],"length":5775,"saved":false}
+{"ts":1371233175314,"patch":[[{"diffs":[[0,"f (anim "],[1,"== false"],[0,")\n\t\tsnak"]],"start1":3623,"start2":3623,"length1":16,"length2":24}]],"length":5783,"saved":false}
+{"ts":1371233176928,"patch":[[{"diffs":[[0,"= false)"],[1," {\n\t\t\t\n\t\t}"],[0,"\n\t\tsnake"]],"start1":3632,"start2":3632,"length1":16,"length2":26}]],"length":5793,"saved":false}
+{"ts":1371233180505,"patch":[[{"diffs":[[0,"e) {\n\t\t\t"],[-1,"\n\t\t}\n\t\t"],[0,"snake.di"]],"start1":3638,"start2":3638,"length1":23,"length2":16},{"diffs":[[0,"nakes);\n"],[1,"\t\t}\n\t\t\n"],[0,"\t\tprint("]],"start1":3675,"start2":3675,"length1":16,"length2":23}]],"length":5793,"saved":false}
+{"ts":1371233181299,"patch":[[{"diffs":[[0,"s);\n\t\t}\n"],[-1,"\t\t\n"],[0,"\t\tprint("]],"start1":3679,"start2":3679,"length1":19,"length2":16}]],"length":5790,"saved":false}
+{"ts":1371233185539,"patch":[[{"diffs":[[0,";\n\t\t}\n\t\t"],[1,"//"],[0,"print();"]],"start1":3681,"start2":3681,"length1":16,"length2":18}]],"length":5792,"saved":false}

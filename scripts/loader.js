@@ -89,6 +89,7 @@ window.addEventListener("load", function(){
 			"loader!scripts/board.js",
 			"loader!scripts/input.js",
 			"loader!scripts/screen.hiscore.js",
+			"loader!scripts/screen.settings.js",
 			"loader!scripts/screen.main-menu.js",
 			"loader!scripts/screen.game.js",
 			"loader!images/images" + snake.settings.snakeSize + ".png",

@@ -34,3 +34,4 @@
 {"ts":1371066556842,"patch":[[{"diffs":[[0,"64) {\n\t\t"],[1,"snake.settings.snakeSize "],[0,"\n\t}\n\n\tMo"]],"start1":594,"start2":594,"length1":16,"length2":41}]],"length":2446,"saved":false}
 {"ts":1371066557991,"patch":[[{"diffs":[[0,"akeSize "],[1,"= "],[0,"\n\t}\n\n\tMo"]],"start1":619,"start2":619,"length1":16,"length2":18}]],"length":2448,"saved":false}
 {"ts":1371066569789,"patch":[[{"diffs":[[0,"eSize = "],[1,"40;"],[0,"\n\t}\n\n\tMo"]],"start1":621,"start2":621,"length1":16,"length2":19}]],"length":2451,"saved":false}
+{"contributors":[],"silentsave":false,"ts":1371233918580,"patch":[[{"diffs":[[0,"iscore.js\",\n"],[1,"\t\t\t\"loader!scripts/screen.settings.js\",\n"],[0,"\t\t\t\"loader!s"]],"start1":2220,"start2":2220,"length1":24,"length2":64}]],"length":2491,"saved":false}

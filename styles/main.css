@@ -287,7 +287,7 @@ ul.menu li button:active {
 #hiscore ol.score-list {
 	font-size : 0.65em;
 	width : 75%;
-	margin : 0  10%;
+	margin : 0 10%;
 }
 #hiscore ol.score-list li {
 	width : 100%;
@@ -299,5 +299,26 @@ ul.menu li button:active {
 #hiscore ol.score-list li span:nth-child(2) {
 	display : inline-block;
 	width : 30%;
+	text-align : center;
+}
+#settings h2 {
+	margin-top : 0.25em;
+	font-size : 1.25em;
+}
+#settings ul.settings-list {
+	font-size : 0.65em;
+	width : 75%;
+	margin : 0 10%;
+}
+#settings ul.settings-list li {
+	width : 100%;
+}
+#settings ul.settings-list li span {
+	display : inline-block;
+	width : 50%;
+}
+#settings ul.settings-list li input {
+	display : inline-block;
+	width : 50%;
 	text-align : center;
 }

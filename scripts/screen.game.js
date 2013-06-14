@@ -32,12 +32,22 @@ snake.screens["game-screen"] = (function() {
 				board.setCounter(activeGame.counter);
 			}
 		}
-		
-		board.initialize(useActiveGame, function() {
-			display.initialize(function() {
-				timer = setInterval(board.go, 200);
+		if (snake.screens["settings"].firstTime == true) {
+			snake.screens["settings"].initialize(function() {
+				snake.screens["settings"].firstTime = false;
+				board.initialize(useActiveGame, function() {
+						display.initialize(function() {
+						timer = setInterval(board.go, 200);
+					});
+				});
 			});
-		});
+		} else {
+			board.initialize(useActiveGame, function() {
+				display.initialize(function() {
+					timer = setInterval(board.go, 200);
+				});
+			});
+		}
 	}
 	function announce(str) {
         var element = $("#game-screen .announcement")[0];
@@ -58,7 +68,7 @@ snake.screens["game-screen"] = (function() {
 		stopGame();
 		storage.set("activeGameData", null);
 		display.gameOver(function() {
-			//announce("Przegrałeś grę!");
+			announce("Koniec gry");
 			setTimeout(function() {
 				snake.game.showScreen("hiscore", board.getScore());
 			}, 2500);

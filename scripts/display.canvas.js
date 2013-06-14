@@ -230,29 +230,57 @@ snake.display = (function() {
 		}
 	}
 	function moveSnake(objects, pos) {
-		var fromX, fromY, toX, toY, turnings = [];/*
-		for (var i = 0; i < objects.length; i++) {
-			if (objects[i].type == 1 || objects[i].type == 2) {
-				turnings.push(objects[i]);
-				//objects[i].type = 0;
-			}
-		}*/
+		var fromX, fromY, toX, toY,
+			destX, destY;
 		for (var i = 0; i < objects.length; i++) {
 			fromX = objects[i].from.x;
 			fromY = objects[i].from.y;
 			toX = objects[i].to.x;
-			toY = objects[i].to.y;/*
-			if (objects[i].type == 1 || objects[i].type == 2) {
-				objects[i].type = 0;
-			}*/
-			drawObject(objects[i].type, fromX + ((toX - fromX) * pos),
-										fromY + ((toY - fromY) * pos),
-										1, objects[i].rot
+			toY = objects[i].to.y;
+			if (objects[i].type != 1 && objects[i].type != 2) {
+				drawObject(objects[i].type, fromX + ((toX - fromX) * pos),
+							  fromY + ((toY - fromY) * pos),
+							  1, objects[i].rot
 			);
-		}/*
-		for (var i = 0; i < turnings.length; i++) {
-			drawObject(turnings[i].type, turnings[i].to.x, turnings[i].to.y, 1, turnings[i].rot);
-		}*/
+			} else {
+				var difference = 1, helper;
+				if (toX != fromX) {
+					if (toX < fromX) {
+						destX = toX + difference;
+						helper = 3;
+					} else {
+						destX = toX - difference;
+						helper = 1;
+					}
+				} else {
+					destX = toX;
+				}
+				if (toY != fromY) {
+					if (toY < fromY) {
+						destY = toY + difference;
+						helper = 0;
+					} else {
+						destY = toY - difference;
+						helper = 2;
+					}
+				} else {
+					destY = toY;
+				}
+				drawObject(0, destX, destY, 1, objects[i].rot);
+				drawObject(objects[i].type, toX, toY, 1, objects[i].rot);
+				if (i == objects.length - 1) {
+					if (helper == 0) {
+						ctx.clearRect(destX, destY + 1 - pos, 1, destY + 1);
+					} else if (helper == 1) {
+						ctx.clearRect(destX, destY, pos, 1);
+					} else if (helper == 2) {
+						ctx.clearRect(destX, destY, 1, pos);
+					} else {
+						ctx.clearRect(destX + 1 - pos, destY, destX + 1, 1);
+					}
+				}
+			}	
+		}
 	}
 	function animateSnake(newBoard, snakes, popped) {
 		var objects = [], current,
@@ -272,7 +300,7 @@ snake.display = (function() {
 				type : board[snakes[i].X][snakes[i].Y],
 				rot : snakes[i].rot * Math.PI / 2
 			};
-			objects.push(current);
+				objects.push(current);
 		}
 		
 		addAnimation(200, {
