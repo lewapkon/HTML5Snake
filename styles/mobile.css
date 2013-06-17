@@ -61,3 +61,27 @@
 		padding-top : 1.5em;
 	}
 }
+#hiscore h2 {
+    font-size : 1em;
+    margin-top : 0.1em;
+}
+#hiscore ol.score-list {
+    width : 100%;
+    font-size : 0.3em;
+}
+#hiscore ol.score-list li {
+    width : 50%;
+    display : inline-block;
+}
+#settings h2 {
+	font-size : 1em;
+    margin-top : 0.1em;
+}
+#hiscore ul.settings-list {
+	width : 96%;
+	font-size : 0.4em;
+}
+#hiscore ul.settings-list li {
+	width : 50%;
+	display : inline-block;
+}

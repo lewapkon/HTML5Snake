@@ -5,6 +5,7 @@ var snake = {
 		cols : 15,
 		baseScore : 100,
 		snakeSize : 16,
+		animations : true,
 		controls : {
 			KEY_UP : "go",
 			KEY_LEFT : "turnLeft",

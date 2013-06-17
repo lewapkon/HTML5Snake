@@ -90,7 +90,6 @@ snake.display = (function() {
         renderAnimations(time, previousCycle);
         previousCycle = time;
         window.requestAnimationFrame(cycle);
-        //timer = setTimeout(cycle, 1000/30);
     }
 	function gameOver(callback) {
         addAnimation(1000, {
@@ -123,7 +122,6 @@ snake.display = (function() {
             }
 
             ctx.save();
-            //ctx.globalCompositeOperation = "lighter";
             ctx.translate(piece.pos.x, piece.pos.y);
             ctx.rotate(piece.rot * pos * Math.PI * 4);
             ctx.translate(-piece.pos.x, -piece.pos.y);
@@ -243,7 +241,7 @@ snake.display = (function() {
 							  1, objects[i].rot
 			);
 			} else {
-				var difference = 1, helper;
+				var difference = 0.95, helper;
 				if (toX != fromX) {
 					if (toX < fromX) {
 						destX = toX + difference;
@@ -266,9 +264,9 @@ snake.display = (function() {
 				} else {
 					destY = toY;
 				}
-				drawObject(0, destX, destY, 1, objects[i].rot);
+	    		drawObject(0, destX, destY, 1, objects[i].rot);
 				drawObject(objects[i].type, toX, toY, 1, objects[i].rot);
-				if (i == objects.length - 1) {
+    	        if (i == objects.length - 1) {
 					if (helper == 0) {
 						ctx.clearRect(destX, destY + 1 - pos, 1, destY + 1);
 					} else if (helper == 1) {
@@ -278,8 +276,8 @@ snake.display = (function() {
 					} else {
 						ctx.clearRect(destX + 1 - pos, destY, destX + 1, 1);
 					}
-				}
-			}	
+				}			
+			}
 		}
 	}
 	function animateSnake(newBoard, snakes, popped) {

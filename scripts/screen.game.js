@@ -32,22 +32,11 @@ snake.screens["game-screen"] = (function() {
 				board.setCounter(activeGame.counter);
 			}
 		}
-		if (snake.screens["settings"].firstTime == true) {
-			snake.screens["settings"].initialize(function() {
-				snake.screens["settings"].firstTime = false;
-				board.initialize(useActiveGame, function() {
-						display.initialize(function() {
-						timer = setInterval(board.go, 200);
-					});
-				});
+		board.initialize(useActiveGame, function() {
+			display.initialize(function() {
+				timer = setInterval(board.go, 200);
 			});
-		} else {
-			board.initialize(useActiveGame, function() {
-				display.initialize(function() {
-					timer = setInterval(board.go, 200);
-				});
-			});
-		}
+		});
 	}
 	function announce(str) {
         var element = $("#game-screen .announcement")[0];

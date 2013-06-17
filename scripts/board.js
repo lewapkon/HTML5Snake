@@ -3,8 +3,8 @@ snake.board = (function() {
 		cols,
 		rows,
 		baseScore,
-		rotation,
-		rotated = false,
+		rotation, secRotation,
+		rotated = false, secRotated = false,
 		startX, startY,
 		bonusX, bonusY, bonus,
 		board, snakes,
@@ -21,7 +21,7 @@ snake.board = (function() {
 		baseScore = settings.baseScore;
 		cols = settings.cols;
 		rows = settings.rows;
-		anim = snake.screens["settings"].getAnim();
+		anim = settings.animations;
 		if (!startSnake) {
 			startX = Math.floor(cols/2);
 			startY = Math.floor(rows/2);
@@ -159,7 +159,7 @@ snake.board = (function() {
 			popped = snakes.pop();
 		}
 		if (anim == false) {
-			snake.display.redraw(board, snakes);
+			display.redraw(board, snakes);
 		}
 		//print();
 		if (++counter == 5) {
@@ -167,14 +167,32 @@ snake.board = (function() {
 			changeTime();
 		}
 		snake.screens["game-screen"].saveGameData();
+		
+		if (secRotation < 0) {
+			if (--rotation < 0)	rotation = 3;
+			rotated = true;
+			board[snakes[0].X][snakes[0].Y] = 2;
+			if (snakes[0].rot < 0) snakes[0].rot = 3;
+			secRotated = false;
+			secRotation = 0;
+		} else if (secRotation > 0) {
+			if (++rotation > 3)	rotation = 0;
+			rotated = true;
+			board[snakes[0].X][snakes[0].Y] = 1;
+			if (snakes[0].rot > 3) snakes[0].rot = 0;
+			secRotated = false;
+			secRotation = 0;
+		}
 	}
 	function turnLeft() {
 		if (!rotated) {
 			if (--rotation < 0)	rotation = 3;
 			rotated = true;
 			board[snakes[0].X][snakes[0].Y] = 2;
-			//snakes[0].rot -= 1;
 			if (snakes[0].rot < 0) snakes[0].rot = 3;
+		} else if (!secRotated) {
+			secRotation = -1;
+			secRotated = true;
 		}
 	}
 	function turnRight() {
@@ -182,8 +200,10 @@ snake.board = (function() {
 			if (++rotation > 3)	rotation = 0;
 			rotated = true;
 			board[snakes[0].X][snakes[0].Y] = 1;
-			//snakes[0].rot += 1;
 			if (snakes[0].rot > 3) snakes[0].rot = 0;
+		} else if (!secRotated) {
+			secRotation = 1;
+			secRotated = true;
 		}
 	}
 	function print() {
