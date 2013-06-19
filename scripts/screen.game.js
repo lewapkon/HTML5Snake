@@ -34,7 +34,8 @@ snake.screens["game-screen"] = (function() {
 		}
 		board.initialize(useActiveGame, function() {
 			display.initialize(function() {
-				timer = setInterval(board.go, 200);
+                            settings.fps = settings.size * settings.size * 0.091-settings.size * 8.18 + 280.8;
+				timer = setInterval(board.go, snake.settings.fps);
 			});
 		});
 	}
@@ -59,7 +60,7 @@ snake.screens["game-screen"] = (function() {
 		display.gameOver(function() {
 			announce("Koniec gry");
 			setTimeout(function() {
-				snake.game.showScreen("hiscore", board.getScore());
+				snake.game.showScreen("main-menu",board.getScore());
 			}, 2500);
 		});
 	}
