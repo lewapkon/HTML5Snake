@@ -267,13 +267,13 @@ snake.display = (function() {
 				drawObject(objects[i].type, toX, toY, 1, objects[i].rot);
     	        if (i == objects.length - 1) {
 					if (helper == 0) {
-						ctx.clearRect(destX, destY + 1 - pos, 1, destY + 1);
+						ctx.clearRect(destX, destY + 1 - pos, 1, pos);
 					} else if (helper == 1) {
 						ctx.clearRect(destX, destY, pos, 1);
 					} else if (helper == 2) {
 						ctx.clearRect(destX, destY, 1, pos);
 					} else {
-						ctx.clearRect(destX + 1 - pos, destY, destX + 1, 1);
+						ctx.clearRect(destX + 1 - pos, destY, pos, 1);
 					}
 				}			
 			}
