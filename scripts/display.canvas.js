@@ -2,7 +2,7 @@ snake.display = (function() {
 	var dom = snake.dom,
 		$ = dom.$,
 		canvas, ctx,
-		cols, rows,
+		size,
 		snakeSize,
 		firstRun = true,
 		board,
@@ -13,13 +13,13 @@ snake.display = (function() {
 			bgctx = background.getContext("2d"),
 			image = snake.images["images/tlo" + snakeSize + ".png"];
 		dom.addClass(background, "background");
-		background.width = cols * snakeSize;
-		background.height = rows * snakeSize;
+		background.width = size * snakeSize;
+		background.height = size * snakeSize;
 		//bgctx.fillStyle = "rgba(225,235,255,0.15)";
 		//bgctx.fillRect(0, 0, cols * snakeSize, rows * snakeSize);
 		
-		for (var x = 0; x < cols; x++) {
-			for (var y = 0; y < rows; y++) {
+		for (var x = 0; x < size; x++) {
+			for (var y = 0; y < size; y++) {
 				bgctx.drawImage(image, x * snakeSize, y * snakeSize, snakeSize, snakeSize);
 			}
 		}
@@ -36,15 +36,14 @@ snake.display = (function() {
     }
 	function setup() {
 		var boardElement = $("#game-screen .game-board")[0];
-		cols = snake.settings.cols;
-		rows = snake.settings.rows;
+		size = snake.settings.size;
 		snakeSize = snake.settings.snakeSize;
 		
 		canvas = document.createElement("canvas");
 		ctx = canvas.getContext("2d");
 		dom.addClass(canvas, "board");
-		canvas.width = cols * snakeSize;
-		canvas.height = rows * snakeSize;
+		canvas.width = size * snakeSize;
+		canvas.height = size * snakeSize;
 		ctx.scale(snakeSize, snakeSize);
 		
 		boardElement.appendChild(createBackground());
@@ -115,9 +114,9 @@ snake.display = (function() {
             piece.pos.y += piece.vel.y * delta;
             piece.pos.x += piece.vel.x * delta;
 
-            if (piece.pos.x < 0 || piece.pos.x > cols) {
+            if (piece.pos.x < 0 || piece.pos.x > size) {
                 piece.pos.x = Math.max(0, piece.pos.x);
-                piece.pos.x = Math.min(cols, piece.pos.x);
+                piece.pos.x = Math.min(size, piece.pos.x);
                 piece.vel.x *= -1;
             }
 
@@ -175,7 +174,7 @@ snake.display = (function() {
 		
         addAnimation(3000, {
             before : function(pos) {
-                ctx.clearRect(0,0,cols,rows);
+                ctx.clearRect(0,0,size,size);
             },
             render : function(pos, delta) {
                 explodePieces(pieces, pos, delta);
@@ -218,8 +217,8 @@ snake.display = (function() {
 			y = snakes[i].Y;
 			drawObject(board[x][y], x, y, 1, snakes[i].rot * Math.PI / 2);
 		}
-		for (x = 0; x < cols; x++) {
-			for (y = 0; y < rows; y++) {
+		for (x = 0; x < size; x++) {
+			for (y = 0; y < size; y++) {
 				field = board[x][y];
 				if (field == 4 || field == 5) {
 					drawObject(field, x, y, 1, 0);
@@ -301,9 +300,9 @@ snake.display = (function() {
 				objects.push(current);
 		}
 		
-		addAnimation(200, {
+		addAnimation(snake.settings.fps, {
             before : function(pos) {
-                ctx.clearRect(0, 0, cols, rows);
+                ctx.clearRect(0, 0, size, size);
             },
             render : function(pos) {
                 drawObject(bonus.type, bonus.X, bonus.Y, 1, 0);

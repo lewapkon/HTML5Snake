@@ -3,13 +3,20 @@
 	height : 100%;
 	font-size : 64px;
 }
-.snake-size {
-	font-size : 64px;
+@media (orientation: portrait) {
+	ul.menu li button {
+		width : 12em;
+	}
+	.snake-size {
+		font-size : 94px;
+	}
 }
-
 @media (orientation: landscape) {
 	#game-screen .game-board {
 		float : left;
+	}
+	.snake-size {
+		font-size : 64px;
 	}
 	#game-screen .game-info {
 		width : auto;
@@ -39,6 +46,7 @@
 	}
 	ul.menu li button {
 		margin : 0.5em;
-		font-size : 0.5em;
+		font-size : 0.4em;
+		width : 12em;
 	}
 }

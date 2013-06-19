@@ -36,6 +36,37 @@ snake.screens["settings"] = (function() {
 				settings.animations = true;
 			}
 		});
+		var list = $("#settings ul.settings-list")[0],
+			cheat = document.createElement("li"),
+			cheatName = document.createElement("span"),
+			cheatValue = document.createElement("input");
+		cheatName.innerHTML = "Cheaty";
+		cheatValue.type = "checkbox";
+		cheatValue.checked = false;
+		cheat.appendChild(cheatName);
+		cheat.appendChild(cheatValue);
+		list.appendChild(cheat);
+		dom.bind(cheatValue, "click", function(e) {
+			if (settings.baseScore == 1000) {
+				settings.baseScore = 100;
+			} else {
+				settings.baseScore = 1000;
+			}
+		});
+		
+		var list = $("#settings ul.settings-list")[0],
+			row = document.createElement("li"),
+			rowName = document.createElement("span"),
+			rowValue = document.createElement("input");
+		rowName.innerHTML = "Wielkość planszy";
+		rowValue.type = "textbox";
+		row.appendChild(rowName);
+		row.appendChild(rowValue);
+		list.appendChild(row);
+		dom.bind(rowValue, "change", function(e) {
+		settings.size=rowValue.value;
+		});
+		
 	}
 	return {
 		run : run

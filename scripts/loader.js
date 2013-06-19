@@ -1,10 +1,10 @@
 var snake = {
 	screens : {},
 	settings : {
-		rows : 15,
-		cols : 15,
+		size : 15,
 		baseScore : 100,
 		snakeSize : 16,
+		fps : 85,
 		animations : true,
 		controls : {
 			KEY_UP : "go",
@@ -94,7 +94,7 @@ window.addEventListener("load", function(){
 			"loader!scripts/screen.main-menu.js",
 			"loader!scripts/screen.game.js",
 			"loader!images/images" + snake.settings.snakeSize + ".png",
-			"loader!images/tlo" + snake.settings.snakeSize + ".png"
+                        "loader!images/tlo" + snake.settings.snakeSize + ".png"
 		]
 	}]);
 }, false);

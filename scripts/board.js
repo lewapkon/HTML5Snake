@@ -1,7 +1,6 @@
 snake.board = (function() {
 	var settings,
-		cols,
-		rows,
+		size,
 		baseScore,
 		rotation, secRotation,
 		rotated = false, secRotated = false,
@@ -19,12 +18,11 @@ snake.board = (function() {
 	function initialize(startSnake, callback) {
 		settings = snake.settings;
 		baseScore = settings.baseScore;
-		cols = settings.cols;
-		rows = settings.rows;
+		size = settings.size;
 		anim = settings.animations;
 		if (!startSnake) {
-			startX = Math.floor(cols/2);
-			startY = Math.floor(rows/2);
+			startX = Math.floor(size/2);
+			startY = Math.floor(size/2);
 			generateSnake();
 		} else {
 			startX = snakes[0].X;
@@ -49,9 +47,9 @@ snake.board = (function() {
 		snakes = [];
 		board = [];
 		
-		for (var x = 0; x < cols; x++) {
+		for (var x = 0; x < size; x++) {
 			board[x] = [];
-			for (var y = 0; y < rows; y++) {
+			for (var y = 0; y < size; y++) {
 				board[x][y] = 6;
 			}
 		}
@@ -61,8 +59,8 @@ snake.board = (function() {
 	}
 	function rndBonus() {
 		do {
-			bonusX = Math.floor(Math.random() * cols);
-			bonusY = Math.floor(Math.random() * rows);
+			bonusX = Math.floor(Math.random() * size);
+			bonusY = Math.floor(Math.random() * size);
 		} while (board[bonusX][bonusY] != 6);
 		
 		bonus = {
@@ -80,7 +78,7 @@ snake.board = (function() {
 		}
 	}
 	function getField(x, y) {
-		if (x < 0 || x > cols - 1 || y < 0 || y > rows - 1) {
+		if (x < 0 || x > size - 1 || y < 0 || y > size - 1) {
 			return -2;
 		} else {
 			return board[x][y];
@@ -139,6 +137,7 @@ snake.board = (function() {
 					board[snakes[0].X][snakes[0].Y] = 3;
 				}
 		}
+		rotated = false;
 		if (helper > 0 && snakes.length > 1) {
 			if (board[snakes[1].X][snakes[1].Y] == 3) {
 				board[snakes[1].X][snakes[1].Y] = 0;
@@ -208,8 +207,8 @@ snake.board = (function() {
 	}
 	function print() {
 		var str = "";
-		for (var y = 0; y < rows; y++) {
-			for (var x = 0; x < cols; x++) {
+		for (var y = 0; y < size; y++) {
+			for (var x = 0; x < size; x++) {
 				str += getField(x, y) + " ";
 			}
 			str += "\r\n";
