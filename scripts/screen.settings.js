@@ -36,6 +36,7 @@ snake.screens["settings"] = (function() {
 				settings.animations = true;
 			}
 		});
+		/*
 		var list = $("#settings ul.settings-list")[0],
 			cheat = document.createElement("li"),
 			cheatName = document.createElement("span"),
@@ -53,7 +54,7 @@ snake.screens["settings"] = (function() {
 				settings.baseScore = 1000;
 			}
 		});
-		
+		*/
 		var list = $("#settings ul.settings-list")[0],
 			row = document.createElement("li"),
 			rowName = document.createElement("span"),
@@ -64,7 +65,7 @@ snake.screens["settings"] = (function() {
 		row.appendChild(rowValue);
 		list.appendChild(row);
 		dom.bind(rowValue, "change", function(e) {
-		settings.size=rowValue.value;
+                    settings.size = rowValue.value;
 		});
 		
 	}

@@ -22,7 +22,7 @@ snake.input = (function() {
 			direction = 1;
 		}
 		trigger(action, direction);
-		event.preventDefault();
+		//event.preventDefault();
 	}
 	function initialize() {
 		inputHandlers = {};
