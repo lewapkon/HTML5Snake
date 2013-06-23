@@ -8,7 +8,7 @@ snake.input = (function() {
 			38 : "KEY_UP",
 			39 : "KEY_RIGHT"
 		};
-	function handleClick(event, control, click) {
+	function handleClick(control, click) {
 		var action = settings.controls[control];
 		if (!action) {
 				return;
@@ -27,12 +27,16 @@ snake.input = (function() {
 	function initialize() {
 		inputHandlers = {};
 		var board = $("#game-screen .game-board")[0];
-		dom.bind(board, "mousedown", function(event) {
-			handleClick(event, "CLICK", event);
+		/*
+		dom.bind(document, "mousedown", function(event) {
+			handleClick("CLICK", event);
 		});
+		*/
+
 		dom.bind(document, "touchstart", function(event) {
-			handleClick(event, "TOUCH", event.targetTouches[0]);
+			handleClick("TOUCH", event.targetTouches[0]);
 		});
+		
 		dom.bind(document, "keydown", function(event) {
 			var keyName = keys[event.keyCode];
 			if (keyName && settings.controls[keyName]) {
