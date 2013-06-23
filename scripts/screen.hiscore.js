@@ -3,6 +3,7 @@ snake.screens["hiscore"] = (function() {
 		$ = dom.$,
 		game = snake.game,
 		storage = snake.storage,
+		settings = snake.settings,
 		numScores = 10,
 		firstRun = true;
 	function setup() {
@@ -52,9 +53,8 @@ snake.screens["hiscore"] = (function() {
 			name, i, entry;
 		for (i = 0; i <= scores.length; i++) {
 			if (i == scores.length || score > scores[i].score) {
-				name = prompt("Wpisz swoje imię: ");
 				entry = {
-					name : name,
+					name : settings.name,
 					score : score
 				};
 				scores.splice(i, 0, entry);

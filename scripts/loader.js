@@ -6,6 +6,7 @@ var snake = {
 		snakeSize : 16,
 		fps : 85,
 		animations : true,
+		name : "anonymous",
 		controls : {
 			KEY_UP : "go",
 			KEY_LEFT : "turnLeft",

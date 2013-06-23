@@ -14,6 +14,11 @@ snake.screens["splash-screen"] = (function() {
 				dom.bind(scr, "click", function() {
 					snake.game.showScreen("main-menu");
 				});
+				// Ustawia nazwę.
+				var activeName = snake.storage.get("name");
+				if (activeName) {
+					snake.settings.name = activeName;
+				}
 			} else {
 				setTimeout(checkProgress, 30);
 			}
