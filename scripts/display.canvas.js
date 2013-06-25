@@ -28,10 +28,10 @@ snake.display = (function() {
     }
     function addAnimation(runTime, fncs) {
 	var anim = {
-	    runTime: runTime,
-	    startTime: Date.now(),
-	    pos: 0,
-	    fncs: fncs
+	    runTime : runTime,
+	    startTime : Date.now(),
+	    pos : 0,
+	    fncs : fncs
 	};
 	animations.push(anim);
     }
@@ -97,13 +97,13 @@ snake.display = (function() {
     }
     function gameOver(callback) {
 	addAnimation(1000, {
-	    render: function(pos) {
+	    render : function(pos) {
 		canvas.style.left =
 			0.2 * pos * (Math.random() - 0.5) + "em";
 		canvas.style.top =
 			0.2 * pos * (Math.random() - 0.5) + "em";
 	    },
-	    done: function() {
+	    done : function() {
 		canvas.style.left = "0";
 		canvas.style.top = "0";
 		explode(callback);
@@ -148,43 +148,43 @@ snake.display = (function() {
 	    x = snakes[i].X;
 	    y = snakes[i].Y;
 	    piece = {
-		type: board[x][y],
-		pos: {
-		    x: x + 0.5,
-		    y: y + 0.5
+		type : board[x][y],
+		pos : {
+		    x : x + 0.5,
+		    y : y + 0.5
 		},
-		vel: {
-		    x: (Math.random() - 0.5) * 20,
-		    y: -Math.random() * 10
+		vel : {
+		    x : (Math.random() - 0.5) * 20,
+		    y : -Math.random() * 10
 		},
-		rot: (Math.random() - 0.5) * 3,
-		rotation: snakes[i].rot
+		rot : (Math.random() - 0.5) * 3,
+		rotation : snakes[i].rot
 	    }
 	    pieces.push(piece);
 	}
 
 	pieces.push({
-	    type: board[bonus.X][bonus.Y],
-	    pos: {
-		x: bonus.X,
-		y: bonus.Y
+	    type : board[bonus.X][bonus.Y],
+	    pos : {
+		x : bonus.X,
+		y : bonus.Y
 	    },
-	    vel: {
-		x: (Math.random() - 0.5) * 20,
-		y: -Math.random() * 10
+	    vel : {
+		x : (Math.random() - 0.5) * 20,
+		y : -Math.random() * 10
 	    },
-	    rot: (Math.random() - 0.5) * 3,
-	    rotation: 0
+	    rot : (Math.random() - 0.5) * 3,
+	    rotation : 0
 	});
 
 	addAnimation(3000, {
-	    before: function(pos) {
+	    before : function(pos) {
 		ctx.clearRect(0, 0, size, size);
 	    },
-	    render: function(pos, delta) {
+	    render : function(pos, delta) {
 		explodePieces(pieces, pos, delta);
 	    },
-	    done: callback
+	    done : callback
 	});
     }
     function initialize(callback) {
@@ -292,37 +292,37 @@ snake.display = (function() {
 
 	for (var i = 0; i < snakes.length - 1; i++) {
 	    current = {
-		from: {
-		    x: snakes[i + 1].X,
-		    y: snakes[i + 1].Y
+		from : {
+		    x : snakes[i + 1].X,
+		    y : snakes[i + 1].Y
 		},
-		to: {
-		    x: snakes[i].X,
-		    y: snakes[i].Y
+		to : {
+		    x : snakes[i].X,
+		    y : snakes[i].Y
 		},
-		type: board[snakes[i].X][snakes[i].Y],
-		rot: snakes[i].rot * Math.PI / 2
+		type : board[snakes[i].X][snakes[i].Y],
+		rot : snakes[i].rot * Math.PI / 2
 	    };
 	    objects.push(current);
 	}
 
 	addAnimation(snake.settings.fps, {
-	    before: function(pos) {
+	    before : function(pos) {
 		ctx.clearRect(0, 0, size, size);
 	    },
-	    render: function(pos) {
+	    render : function(pos) {
 		drawObject(bonus.type, bonus.X, bonus.Y, 1, 0);
 		moveSnake(objects, pos);
 	    }
 	});
     }
     return {
-	initialize: initialize,
-	redraw: redraw,
-	gameOver: gameOver,
-	animateSnake: animateSnake,
-	clearBoard: clearBoard,
-	background: background,
-	canvas: canvas
+	initialize : initialize,
+	redraw : redraw,
+	gameOver : gameOver,
+	animateSnake : animateSnake,
+	clearBoard : clearBoard,
+	background : background,
+	canvas : canvas
     };
 })();
